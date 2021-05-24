@@ -1,0 +1,1 @@
+export const MEDIA_QUERY_BREAKING_POINT = 576;
