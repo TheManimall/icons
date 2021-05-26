@@ -12,6 +12,7 @@ class FormikSelect extends Component {
   state = {
     focused: false
   };
+  selectRef = React.createRef();
 
   handleFocus = () => this.setState({ focused: true });
 
@@ -23,11 +24,18 @@ class FormikSelect extends Component {
   renderOptions = () => {
     const { options } = this.props;
     return options.map(opt => (
-      <option key={opt.value} value={opt.value}>
+      <option key={opt.value} value={opt.value} onKeyUp={this.handleKeyUp}>
         {opt.text}
       </option>
     ));
   };
+
+  handleKeyUp = (event) => {
+    console.log('event.keyCode', event.keyCode)
+    if (event.keyCode === '32') {
+      console.log('event', event);
+    }
+  }
 
   render() {
     const {
@@ -67,6 +75,7 @@ class FormikSelect extends Component {
             id={id}
             name={name}
             onChange={handleChange}
+            ref={this.selectRef}
             className={buildStyles({
               defaultStyles,
               specificity,
@@ -83,6 +92,7 @@ class FormikSelect extends Component {
             value={value}
             disabled={disabled}
             aria-label={ariaLabel}
+            onKeyUp={this.handleKeyUp}
           >
             {this.renderOptions()}
           </select>
